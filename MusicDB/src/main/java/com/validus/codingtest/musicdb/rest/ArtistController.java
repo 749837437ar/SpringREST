@@ -20,12 +20,12 @@ import com.validus.codingtest.musicdb.service.ArtistService;
 
 @RestController
 @RequestMapping(value = "/artist")
-public class ArtistController extends AbstractRestHandler {
+public class ArtistController {
 
 	@Autowired
 	private ArtistService artistService;
 
-	@RequestMapping(value = "", method = RequestMethod.POST, consumes = {"application/json"}, produces = {"application/json"})
+	@RequestMapping(value = "", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public String addArtist(@RequestBody Artist artist, HttpServletRequest request, HttpServletResponse response) {
 		Artist savedArtist = artistService.save(artist);
@@ -33,13 +33,13 @@ public class ArtistController extends AbstractRestHandler {
 		return "SUCCESS";
 	}
 
-	@RequestMapping(value = "", method = RequestMethod.GET, consumes = {"application/json"}, produces = {"application/json"})
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody List<Artist> getAllArtist() {
 		return artistService.findAll();
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET, consumes = {"application/json"}, produces = {"application/json"})
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody Artist getArtist(@PathVariable("id") int id, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -47,7 +47,7 @@ public class ArtistController extends AbstractRestHandler {
 		return artist;
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = {"application/json"}, produces = {"application/json"})
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void updateArtist(@PathVariable("id") int id, @RequestBody Artist artist, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -56,7 +56,7 @@ public class ArtistController extends AbstractRestHandler {
 		this.artistService.save(artist);
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, consumes = {"application/json"}, produces = {"application/json"})
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteArtist(@PathVariable("id") int id, HttpServletRequest request, HttpServletResponse response) {
 		artistService.delete(id);

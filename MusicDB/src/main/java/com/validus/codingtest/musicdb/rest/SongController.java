@@ -23,7 +23,7 @@ import io.swagger.annotations.ApiParam;
 
 @RestController
 @RequestMapping(value = "/song")
-public class SongController extends AbstractRestHandler {
+public class SongController {
 
 	public SongController() {
 		// TODO Auto-generated constructor stub
@@ -32,7 +32,7 @@ public class SongController extends AbstractRestHandler {
 	@Autowired
 	private SongService songService;
 
-	@RequestMapping(value = "", method = RequestMethod.POST, consumes = {"application/json"}, produces = {"application/json"})
+	@RequestMapping(value = "", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public String addCustomer(@RequestBody Song album, HttpServletRequest request, HttpServletResponse response) {
 		Song savedSong = songService.save(album);
@@ -40,13 +40,13 @@ public class SongController extends AbstractRestHandler {
 		return "SUCCESS";
 	}
 
-	@RequestMapping(value = "", method = RequestMethod.GET, consumes = {"application/json"}, produces = {"application/json"})
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody List<Song> getAllSongs() {
 		return songService.findAll();
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET, consumes = {"application/json"}, produces = {"application/json"})
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody Song getSong(@PathVariable("id") int id,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -56,7 +56,7 @@ public class SongController extends AbstractRestHandler {
 		return song;
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = {"application/json"}, produces = {"application/json"})
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void updateSong(
 			@ApiParam(value = "The ID of the existing hotel resource.", required = true) @PathVariable("id") int id,
@@ -65,7 +65,7 @@ public class SongController extends AbstractRestHandler {
 		this.songService.save(song);
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, consumes = {"application/json"}, produces = {"application/json"})
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteCustomer(@PathVariable("id") int id,
 			HttpServletRequest request, HttpServletResponse response) {

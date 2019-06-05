@@ -22,12 +22,12 @@ import io.swagger.annotations.ApiParam;
 
 @RestController
 @RequestMapping(value = "/album")
-public class MusicDbController extends AbstractRestHandler {
+public class MusicDbController{
 
 	@Autowired
 	private AlbumService albumService;
 
-	@RequestMapping(value = "", method = RequestMethod.POST, consumes = {"application/json"}, produces = {"application/json"})
+	@RequestMapping(value = "", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public String addCustomer(@RequestBody Album album, HttpServletRequest request, HttpServletResponse response) {
 		Album savedCustomer = albumService.save(album);
@@ -35,13 +35,13 @@ public class MusicDbController extends AbstractRestHandler {
 		return "SUCCESS";
 	}
 
-	@RequestMapping(value = "", method = RequestMethod.GET, consumes = {"application/json"}, produces = {"application/json"})
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody List<Album> getAllCustomer() {
 		return albumService.findAll();
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET ,consumes = {"application/json"}, produces = {"application/json"})
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody Album getAlbum(
 			@ApiParam(value = "The ID of the customer.", required = true) @PathVariable("id") int id,
@@ -52,7 +52,7 @@ public class MusicDbController extends AbstractRestHandler {
 		return cstmr;
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT ,consumes = {"application/json"}, produces = {"application/json"})
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void updateArtist(@PathVariable("id") int id, @RequestBody Album album, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -61,7 +61,7 @@ public class MusicDbController extends AbstractRestHandler {
 		this.albumService.save(album);
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, consumes = {"application/json"}, produces = {"application/json"})
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteArtist(@PathVariable("id") int id, HttpServletRequest request, HttpServletResponse response) {
 		albumService.delete(id);
